@@ -191,130 +191,51 @@ CGPoint PolToRect(float32 r, float32 t){
     _coreFixture = _coreBody->CreateFixture(&coreShapeDef);
 }
 
--(void) addRing1Body:(CGPoint)p {
-    b2BodyDef ring1BodyDef;
-    ring1BodyDef.type = b2_dynamicBody;
-    ring1BodyDef.position.Set(p.x, p.y);
-    bodyUserData* budRing1 = new bodyUserData();
-    budRing1->ring = true;
-    ring1BodyDef.userData = budRing1;
-    ring1BodyDef.bullet = true;
-    _ring1Body = _world->CreateBody(&ring1BodyDef);
+-(void) addRingBodyAtPoint:(CGPoint)p withRadius:(float32)ringRadius{
+    b2BodyDef ringBodyDef;
+    ringBodyDef.type = b2_dynamicBody;
+    ringBodyDef.position.Set(p.x, p.y);
+    bodyUserData* budRing = new bodyUserData();
+    budRing->ring = true;
+    ringBodyDef.userData = budRing;
+    ringBodyDef.bullet = true;
+    _ringBody = _world->CreateBody(&ringBodyDef);
 
     // Create circle shape
-    b2CircleShape ring1Circle;
-    ring1Circle.m_radius = 1.25;
+    b2CircleShape ringCircle;
+    ringCircle.m_radius = ringRadius;
 
     // Create shape definition and add to body
-    b2FixtureDef ring1ShapeDef;
-    ring1ShapeDef.shape = &ring1Circle;
-    ring1ShapeDef.density = 25.0f;
-    ring1ShapeDef.isSensor = true;
-    ring1ShapeDef.friction = 0.0f; // We don't want the tile to have friction!
-    ring1ShapeDef.restitution = 1.0f;
+    b2FixtureDef ringShapeDef;
+    ringShapeDef.shape = &ringCircle;
+    ringShapeDef.density = 25.0f;
+    ringShapeDef.isSensor = true;
+    ringShapeDef.friction = 0.0f; // We don't want the tile to have friction!
+    ringShapeDef.restitution = 1.0f;
 
-    _ring1Fixture = _ring1Body->CreateFixture(&ring1ShapeDef);
+    _ringFixture = _ringBody->CreateFixture(&ringShapeDef);
 
-    b2RevoluteJointDef spin1JointDef;
-    spin1JointDef.bodyA = _coreBody;
-    spin1JointDef.bodyB = _ring1Body;
-    spin1JointDef.collideConnected = false;
-    _spinJoint = (b2RevoluteJoint*)_world->CreateJoint( &spin1JointDef );
+    b2RevoluteJointDef spinJointDef;
+    spinJointDef.bodyA = _coreBody;
+    spinJointDef.bodyB = _ringBody;
+    spinJointDef.collideConnected = false;
+    _spinJoint = (b2RevoluteJoint*)_world->CreateJoint( &spinJointDef );
+}
+
+-(void) addRing1Body:(CGPoint)p {
+    [self addRingBodyAtPoint:p withRadius:1.25];
 }
 
 -(void) addRing2Body:(CGPoint)p {
-    b2BodyDef ring2BodyDef;
-    ring2BodyDef.type = b2_dynamicBody;
-    ring2BodyDef.position.Set(p.x, p.y);
-    bodyUserData* budRing2 = new bodyUserData();
-    budRing2->ring = true;
-    ring2BodyDef.userData = budRing2;
-    ring2BodyDef.bullet = true;
-
-    _ring2Body = _world->CreateBody(&ring2BodyDef);
-
-    // Create circle shape
-    b2CircleShape ring2Circle;
-    ring2Circle.m_radius = 1.75;
-
-    // Create shape definition and add to body
-    b2FixtureDef ring2ShapeDef;
-    ring2ShapeDef.shape = &ring2Circle;
-    ring2ShapeDef.density = 25.0f;
-    ring2ShapeDef.isSensor = true;
-    ring2ShapeDef.friction = 0.0f; // We don't want the ball to have friction!
-    ring2ShapeDef.restitution = 1.0f;
-
-    _ring2Fixture = _ring2Body->CreateFixture(&ring2ShapeDef);
-
-    b2RevoluteJointDef spin2JointDef;
-    spin2JointDef.bodyA = _coreBody;
-    spin2JointDef.bodyB = _ring2Body;
-    spin2JointDef.collideConnected = false;
-    _spin2Joint = (b2RevoluteJoint*)_world->CreateJoint( &spin2JointDef );
+    [self addRingBodyAtPoint:p withRadius:1.75];
 }
 
 -(void) addRing3Body:(CGPoint)p {
-    b2BodyDef ring3BodyDef;
-    ring3BodyDef.type = b2_dynamicBody;
-    ring3BodyDef.position.Set(p.x, p.y);
-    bodyUserData* budRing3 = new bodyUserData();
-    budRing3->ring = true;
-    ring3BodyDef.userData = budRing3;
-    ring3BodyDef.bullet = true;
-
-    _ring3Body = _world->CreateBody(&ring3BodyDef);
-
-    // Create circle shape
-    b2CircleShape ring3Circle;
-    ring3Circle.m_radius = 2.25;
-
-    // Create shape definition and add to body
-    b2FixtureDef ring3ShapeDef;
-    ring3ShapeDef.shape = &ring3Circle;
-    ring3ShapeDef.density = 25.0f;
-    ring3ShapeDef.isSensor = true;
-    ring3ShapeDef.friction = 0.0f; // We don't want the ball to have friction!
-    ring3ShapeDef.restitution = 1.0f;
-
-    _ring3Fixture = _ring3Body->CreateFixture(&ring3ShapeDef);
-
-    b2RevoluteJointDef spin3JointDef;
-    spin3JointDef.bodyA = _coreBody;
-    spin3JointDef.bodyB = _ring3Body;
-    spin3JointDef.collideConnected = false;
-    _spin3Joint = (b2RevoluteJoint*)_world->CreateJoint( &spin3JointDef );
+    [self addRingBodyAtPoint:p withRadius:2.25];
 }
 
 -(void) addRing4Body:(CGPoint)p {
-    b2BodyDef ring4BodyDef;
-    ring4BodyDef.type = b2_dynamicBody;
-    ring4BodyDef.position.Set(p.x, p.y);
-    bodyUserData* budRing4 = new bodyUserData();
-    budRing4->ring = true;
-    ring4BodyDef.userData = budRing4;
-    ring4BodyDef.bullet = true;
-
-    _ring4Body = _world->CreateBody(&ring4BodyDef);
-
-    // Create circle shape
-    b2CircleShape ring4Circle;
-    ring4Circle.m_radius = 2.75;
-
-    // Create shape definition and add to body
-    b2FixtureDef ring4ShapeDef;
-    ring4ShapeDef.shape = &ring4Circle;
-    ring4ShapeDef.density = 1000.0f;
-    ring4ShapeDef.isSensor = true;
-    ring4ShapeDef.friction = 0.0f; // We don't want the ball to have friction!
-
-    _ring4Fixture = _ring4Body->CreateFixture(&ring4ShapeDef);
-
-    b2RevoluteJointDef spin4JointDef;
-    spin4JointDef.bodyA = _coreBody;
-    spin4JointDef.bodyB = _ring4Body;
-    spin4JointDef.collideConnected = false;
-    _spin4Joint = (b2RevoluteJoint*)_world->CreateJoint( &spin4JointDef );
+    [self addRingBodyAtPoint:p withRadius:2.75];
 }
 
 -(void) addBlueBody:(CGPoint)p {
