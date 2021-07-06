@@ -24,16 +24,20 @@ When I started work on Perplexity in 2013, I knew it would be the largest scale 
 
 Like in a typical match 3 game, players match 3 or more tiles with adjacent tiles of the same color. Once matched, tiles disappear and new tiles fall into the playfield. The game sports power-ups, special tiles and a couple different modes. 
 
+![hero_small](https://user-images.githubusercontent.com/24867725/124679177-d5d6d480-de78-11eb-9044-67e679bc5795.png)
 
 ## Gameplay
 
 Player manipulate the playfield in a way completely unique to match 3 style games. Instead of tiles moving from top to bottom, they move from the **outer** rings toward the **inner rings**. This theme is carried through to the gameplay. Players can swap a tile with another tile further from (or closer to) the center of the playboard.
+
+![03_Swap01](https://user-images.githubusercontent.com/24867725/124678960-75e02e00-de78-11eb-9e36-69c08ac739bc.png)
 
 
 One of the cool side-effects of playing this game, is that you get more comfortable thiking in a polar grid - a space in which most people aren't particularly familiar.
 
 I tried to lean into the circular format - so instead of just swaping adjacent tiles on the same ring, the player can also **spin and entire ring** in order to find matches. 
 
+![03_Spin](https://user-images.githubusercontent.com/24867725/124678986-8395b380-de78-11eb-95cc-6f967a727fbf.png)
 
 You'll notice in the above image that tiles will fall toward the center of the game board if there are no supporting tiles stopping them. This leads to an entire world of potential puzzle options.
 
@@ -41,14 +45,14 @@ You'll notice in the above image that tiles will fall toward the center of the g
 
 ## Modes
 
-
+![02_Menu](https://user-images.githubusercontent.com/24867725/124679024-927c6600-de78-11eb-8f10-984995e32b1c.png)
 
 Perplexity has a simple menu system. Sound effects and music controls, settings stored as persistant user data, game center integration, and two primary modes - Voyage and Arcade:
 
 
 #### Voyage
 
-
+![04_Puzzle01](https://user-images.githubusercontent.com/24867725/124679045-9c9e6480-de78-11eb-9148-6399f2351d34.png)
 
 The voyage mode was my game's "campaign," where players could explore themed puzzle packs, trying to clear the board in the face of a growing number of obstacles. These obstacles may be unusable rings, or locked tiles as in the image below:
 
@@ -56,7 +60,7 @@ The voyage mode was my game's "campaign," where players could explore themed puz
 
 #### Arcade
 
-
+![01_Arcade01](https://user-images.githubusercontent.com/24867725/124679066-a1fbaf00-de78-11eb-8dd2-85f6a02b9b80.png)
 
 In the Arcade mode, players battle the clock to score as many points as they can. Perplexity uses recursive search functions to identify tile adjacency across the board, and then trigger the appropriate response. There are a variety of triggered events throughout the game - matches disappearing from the board, generating special tiles, awarding more points to the player, etc.
 
